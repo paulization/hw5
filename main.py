@@ -42,7 +42,6 @@ class MainHandler(webapp2.RequestHandler):
             logging.info('Username: ' + u)
             logging.info('Password: ' + p)
             logging.info('Phone: ' + t)
-            title = "Login"
             template_vars = {
                 'title': 'Login',
                 'error': 'BAD CREDENTIALS! Try again'
