@@ -24,20 +24,23 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + "/templates")
     )
 
-class allHandler(webapp2.RequestHandler):
-    def get(self):
-        template_vars = {
-            'title': 'Login',
-            'error': 'BAD URL Attempt!'
-        }
-        template = JINJA_ENVIRONMENT.get_template('login.htm')
-        self.response.out.write(template.render(template_vars))
+#class allHandler(webapp2.RequestHandler):
+#    def get(self):
+#        template_vars = {
+#            'title': 'Login',
+#            'error': 'BAD URL Attempt!'
+#        }
+#        template = JINJA_ENVIRONMENT.get_template('login.htm')
+#        self.response.out.write(template.render(template_vars))
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
+        error = ''
+        if self.request.url != "http://gae-hw5.appspot.com/login":
+            error = 'BAD URL Attempt!'
         template_vars = {
             'title': 'Login',
-            'error': ''
+            'error': error
         }
         template = JINJA_ENVIRONMENT.get_template('login.htm')
         self.response.out.write(template.render(template_vars))
@@ -66,5 +69,5 @@ class MainHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/login', MainHandler),
-    ('/.*', allHandler)
+    ('/.*', MainHandler)
 ], debug=True)
